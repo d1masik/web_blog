@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+    {% block title %}
+        {{ post.title }}
+    {% endblock %}
+    {% block content %}
+        {% if request.user.is_authenticated %}
+        <div>
+        <a href="../admin/">Сторінка Адміна</a>
+            <p>
+                <a href="{% url 'logout' %}">Логаут</a>
+            </p>
+        </div>
+        {% else %}
+        <a href="{% url 'login' %}">Логін</a>
+    {% endif %}
+        <h1>{{ post.title }}</h1>
+        <p class="date">
+            Дата публікації {{ post.publish }}, Автор: {{ post.author }}
+        </p>
+        <div>
+            <img src="{{ post.photo.url }}" alt="post photo" height="600px">
+            {{ post.text|linebreaks }}
+        </div>
+        <div>
+        <a href="{% url 'post_list' %}">Повернутись до списку постів</a>
+        </div>
+    {% endblock %}
